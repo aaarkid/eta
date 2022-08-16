@@ -1,7 +1,10 @@
 #![allow(dead_code)]
+
+mod tests;
+
 use std::time::{Instant};
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub struct Eta {
     tasks_count: usize,
     tasks_done: usize,
@@ -17,7 +20,7 @@ pub struct Eta {
     accuracy: TimeAcc,
 } */
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub enum TimeAcc {
     SEC, MILLI, MICRO, NANO
 }
