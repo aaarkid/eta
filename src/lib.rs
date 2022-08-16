@@ -2,7 +2,7 @@
 use std::time::{Instant};
 
 #[derive(Debug, Clone)]
-struct Eta {
+pub struct Eta {
     count: usize,
     done: usize,
     last: Instant,
