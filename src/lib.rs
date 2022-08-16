@@ -53,6 +53,7 @@ impl Eta {
     }*/
 
     pub fn step(&mut self) {
+        self.tasks_done += 1;
         self.total_time_elapsed += self.elapsed();
         self.recent_time = Instant::now();
     }
