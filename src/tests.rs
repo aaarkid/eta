@@ -31,14 +31,13 @@ mod tests {
 
     #[test]
     fn test_eta_elapsed() {
-        let mut eta = Eta::new(10, TimeAcc::SEC);
-        eta.step();
+        let eta = Eta::new(10, TimeAcc::NANO);
         assert!(eta.elapsed() > 0);
     }
 
     #[test]
     fn test_eta_elapsed_time() {
-        let mut eta = Eta::new(10, TimeAcc::SEC);
+        let mut eta = Eta::new(10, TimeAcc::NANO);
         eta.step();
         assert!(eta.total_time_elapsed > 0);
     }
