@@ -87,7 +87,9 @@ eta = "0.0.0"
 
 Usage is revolved around the `Eta` Object which implements a number of functions.
 
-Initialize Eta with `new(TasksCount, TimeAccuracy)` function where `TasksCount` is the number of tasks you want to track and `TimeAccuracy` is the accuracy of the time measurement.
+Initialize Eta in two ways:
+* with `new(TasksCount, TimeAccuracy)` function where `TasksCount` is the number of tasks you want to track, `TasksDone` is the number of tasks that have completed and `TimeAccuracy` is the accuracy of the time measurement.
+* with `in_progress(TasksCount, TasksDone, TimeAccuracy)` function where `TasksDone` is the number of tasks that have completed.
 
 `TimeAccuracy` can be one of the following:
 * `TimeSteps::SEC`
@@ -118,6 +120,7 @@ _For more examples, please refer to the [Documentation](https://docs.rs/eta/0.0.
 - [ ] Enable to pause and resume time tracking
 - [ ] Ability to calculate weight of unequal tasks during development and create more accurate progress and ETA measurement.
 - [ ] Create more options for formatting output.
+- [ ] Add tolerance against outlier values.
 
 See the [open issues](https://github.com/aaarkid/eta/issues) for a full list of proposed features (and known issues).
 
