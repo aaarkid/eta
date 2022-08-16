@@ -12,7 +12,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/aaarkid/eta">
-    <img src="images/logo.png" alt="Logo" width="140" height="">
+    <img src="images/logo.png" alt="Logo" width="210" height="">
   </a>
 
   <p align="center">
@@ -43,17 +43,13 @@
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <!-- <li><a href="#acknowledgments">Acknowledgments</a></li> -->
   </ol>
 </details>
 
@@ -61,6 +57,8 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+
+ETA aims to be a simple, easy to use, and efficient library for tracking progress on repetitive tasks. The main purpose of ETA is to measure remaining time, but it's being develop to include progress tracking and progress bar display too.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -76,45 +74,39 @@
 
 
 <!-- GETTING STARTED -->
-## Getting Started
+## Getting started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
-### Installation
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/aaarkid/eta.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
+Add this to your `Cargo.toml`:
+```rust
+[dependencies]
+eta = "0.0.0"
+```
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Usage is revolved around the `Eta` Object which implements a number of functions.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+Initialize Eta with `new(TasksCount, TimeAccuracy)` function where `TasksCount` is the number of tasks you want to track and `TimeAccuracy` is the accuracy of the time measurement.
+
+`TimeAccuracy` can be one of the following:
+* `TimeSteps::SEC`
+* `TimeSteps::MILLI`
+* `TimeSteps::MICRO`
+* `TimeSteps::NANO`
+
+Run `step()` function on every iteration of your task.
+
+```rust
+    let mut eta = Eta::new(10, TimeSteps::MILLI);
+
+    for i in 0..10 {
+        do_some_function();
+        eta.step();
+    }
+```
+
+_For more examples, please refer to the [Documentation](https://docs.rs/eta/0.0.0/eta/)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -123,10 +115,9 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+- [ ] Enable to pause and resume time tracking
+- [ ] Ability to calculate weight of unequal tasks during development and create more accurate progress and ETA measurement.
+- [ ] Create more options for formatting output.
 
 See the [open issues](https://github.com/aaarkid/eta/issues) for a full list of proposed features (and known issues).
 
@@ -137,7 +128,7 @@ See the [open issues](https://github.com/aaarkid/eta/issues) for a full list of 
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributing to this repository is **greatly appreciated**.
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 Don't forget to give the project a star! Thanks again!
@@ -155,7 +146,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the MPL-2.0 license. See `LICENSE.MD` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
