@@ -2,7 +2,14 @@
 name = "eta"
 version = "0.1.0"
 edition = "2021"
+authors = ["Arkid Kaleci <akaleci@jacobs-university.de>"]
+description = "Tracks progress on repetive tasks and measures estimated remaining times."
+repository = "https://github.com/aaarkid/eta"
+license = "MPL-2.0"
+keywords = ["eta", "progress-bar", "progress-tracking", "remaining-time", "time-estimation"]
+categories = ["date-and-time", "development-tools"]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[badges]
+maintenance = { status = "actively-developed" }
 
 [dependencies]

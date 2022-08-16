@@ -60,18 +60,11 @@
 
 ETA aims to be a simple, easy to use, and efficient library for tracking progress on repetitive tasks. The main purpose of ETA is to measure remaining time, but it's being develop to include progress tracking and progress bar display too.
 
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
 ### Built With
 
 [![Rust][Rust]][Rust-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- GETTING STARTED -->
 ## Getting started
@@ -159,7 +152,7 @@ Distributed under the MPL-2.0 license. See `LICENSE.MD` for more information.
 <!-- CONTACT -->
 ## Contact
 
-[@aaarkid](https://twitter.com/aaarkid) - personal@arkid.me
+[@aaarkid](https://github.com/aaarkid) - akaleci@jacobs-university.de
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

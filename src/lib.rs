@@ -1,4 +1,3 @@
-//turn off warning for dead code
 #![allow(dead_code)]
 use std::time::{Instant};
 
