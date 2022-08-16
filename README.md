@@ -75,20 +75,28 @@ Add this to your `Cargo.toml`:
 eta = "0.0.0"
 ```
 
+Add this to your source code:
+```rust
+use eta::{ETA, TimeAcc};
+```
+
+```rust
+```
+
 <!-- USAGE EXAMPLES -->
 ## Usage
 
 Usage is revolved around the `Eta` Object which implements a number of functions.
 
 Initialize Eta in two ways:
-* with `new(TasksCount, TimeAccuracy)` function where `TasksCount` is the number of tasks you want to track, `TasksDone` is the number of tasks that have completed and `TimeAccuracy` is the accuracy of the time measurement.
+* with `new(TasksCount, TimeAccuracy)` function where `TasksCount` is the number of tasks you want to track and `TimeAccuracy` is the accuracy of the time measurement.
 * with `in_progress(TasksCount, TasksDone, TimeAccuracy)` function where `TasksDone` is the number of tasks that have completed.
 
 `TimeAccuracy` can be one of the following:
-* `TimeSteps::SEC`
-* `TimeSteps::MILLI`
-* `TimeSteps::MICRO`
-* `TimeSteps::NANO`
+* `TimeAcc::SEC`
+* `TimeAcc::MILLI`
+* `TimeAcc::MICRO`
+* `TimeAcc::NANO`
 
 Run `step()` function on every iteration of your task.
 
