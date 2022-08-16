@@ -4,7 +4,7 @@ mod tests;
 
 use std::time::{Instant};
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Eta {
     tasks_count: usize,
     tasks_done: usize,
