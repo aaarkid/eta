@@ -81,9 +81,6 @@ Add this to your source code:
 use eta::{ETA, TimeAcc};
 ```
 
-```rust
-```
-
 <!-- USAGE EXAMPLES -->
 ## Usage
 
