@@ -71,7 +71,7 @@ ETA aims to be a simple, easy to use, and efficient library for tracking progres
 Add this to your `Cargo.toml`:
 ```rust
 [dependencies]
-eta = "0.1.0"
+eta = "0.1.1"
 ```
 
 Add this to your source code:
