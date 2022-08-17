@@ -11,7 +11,7 @@ pub struct Eta {
     recent_time: Instant,
     total_time_elapsed: usize,
     time_accuracy: TimeAcc,
-    paused: Option<Instant>,
+    paused: (Option<Instant>, usize),
 }
 
 /* pub struct EtaMessageFormat {
@@ -33,7 +33,7 @@ impl Eta {
             recent_time: Instant::now(),
             total_time_elapsed: 0,
             time_accuracy,
-            paused: None,
+            paused: (None, 0),
         }
     }
 

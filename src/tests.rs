@@ -11,7 +11,7 @@ mod tests {
         assert_eq!(eta.tasks_done, 0);
         assert_eq!(eta.time_accuracy, TimeAcc::SEC);
         assert_eq!(eta.total_time_elapsed, 0);
-        assert_eq!(eta.paused, None);
+        assert_eq!(eta.paused, (None, 0));
     }
 
     #[test]
@@ -21,7 +21,7 @@ mod tests {
         assert_eq!(eta.tasks_done, 5);
         assert_eq!(eta.time_accuracy, TimeAcc::SEC);
         assert_eq!(eta.total_time_elapsed, 0);
-        assert_eq!(eta.paused, None);
+        assert_eq!(eta.paused, (None, 0));
     }
 
     #[test]
