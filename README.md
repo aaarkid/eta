@@ -4,9 +4,9 @@
 <!-- [![Forks][forks-shield]][forks-url] -->
 [![Stargazers][stars-shield]][stars-url]
 [![Version][version-shield]][version-url]
-<!-- [![Issues][issues-shield]][issues-url] -->
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
+<!-- [![Issues][issues-shield]][issues-url] -->
 
 
 
@@ -73,7 +73,7 @@ ETA aims to be a simple, easy to use, and efficient library for tracking progres
 Add this to your `Cargo.toml`:
 ```rust
 [dependencies]
-eta = "0.0.0"
+eta = "0.1.0"
 ```
 
 Add this to your source code:
