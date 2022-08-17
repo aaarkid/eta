@@ -1,14 +1,12 @@
 <a name="readme-top"></a>
 
-<!-- [![Contributors][contributors-shield]][contributors-url] -->
-<!-- [![Forks][forks-shield]][forks-url] -->
-[![Stargazers][stars-shield]][stars-url]
-[![Version][version-shield]][version-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-<!-- [![Issues][issues-shield]][issues-url] -->
-
-
+<div align="center">
+  <a href="https://github.com/aaarkid/eta/stargazers"><img src="https://img.shields.io/github/stars/aaarkid/eta.svg?style=flat" alt="Stargazers" /></a>
+  <a href="https://crates.io/crates/eta"><img src="https://img.shields.io/crates/v/eta?label=version" alt="Version" /></a>
+  <a href="https://codecov.io/gh/aaarkid/eta"><img src="https://img.shields.io/codecov/c/github/aaarkid/eta" alt="Code Coverage" /></a><br>
+  <a href="https://github.com/aaarkid/eta/blob/master/LICENSE.txt"><img src="https://img.shields.io/github/license/aaarkid/eta.svg?style=flat" alt="License" /></a>
+  <a href="https://linkedin.com/in/arkid-kaleci"><img src="https://img.shields.io/badge/-LinkedIn-black.svg?style=flat&logo=linkedin&colorB=555" alt="LinkedIn" /></a>
+</div>
 
 <br />
 <div align="center">
@@ -177,19 +175,5 @@ Distributed under the MPL-2.0 license. See `LICENSE.MD` for more information.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/aaarkid/eta.svg?style=flat
-[contributors-url]: https://github.com/aaarkid/eta/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/aaarkid/eta.svg?style=flat
-[forks-url]: https://github.com/aaarkid/eta/network/members
-[version-shield]: https://img.shields.io/crates/v/eta?label=version
-[version-url]: https://crates.io/crates/eta
-[stars-shield]: https://img.shields.io/github/stars/aaarkid/eta.svg?style=flat
-[stars-url]: https://github.com/aaarkid/eta/stargazers
-[issues-shield]: https://img.shields.io/github/issues/aaarkid/eta.svg?style=flat
-[issues-url]: https://github.com/aaarkid/eta/issues
-[license-shield]: https://img.shields.io/github/license/aaarkid/eta.svg?style=flat
-[license-url]: https://github.com/aaarkid/eta/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/arkid-kaleci
 [Rust]: https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&color=red&logoColor=white
 [Rust-url]: https://www.rust-lang.org/
