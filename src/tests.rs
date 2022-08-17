@@ -91,11 +91,11 @@ mod tests {
         let mut eta = Eta::new(10, TimeAcc::SEC);
         sleep(Duration::from_secs(1));
         eta.pause();
-        sleep(Duration::from_secs(3));
+        sleep(Duration::from_secs(1));
         eta.resume();
-        sleep(Duration::from_secs(7));
+        sleep(Duration::from_secs(1));
         eta.pause();
-        sleep(Duration::from_secs(15));
+        sleep(Duration::from_secs(1));
         eta.step();
         assert_eq!(eta.total_time_elapsed, 2);
     }
