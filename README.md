@@ -1,9 +1,10 @@
 <a name="readme-top"></a>
 
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
+<!-- [![Contributors][contributors-shield]][contributors-url] -->
+<!-- [![Forks][forks-shield]][forks-url] -->
 [![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
+[![Version][version-shield]][version-url]
+<!-- [![Issues][issues-shield]][issues-url] -->
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
@@ -75,20 +76,25 @@ Add this to your `Cargo.toml`:
 eta = "0.0.0"
 ```
 
+Add this to your source code:
+```rust
+use eta::{ETA, TimeAcc};
+```
+
 <!-- USAGE EXAMPLES -->
 ## Usage
 
 Usage is revolved around the `Eta` Object which implements a number of functions.
 
 Initialize Eta in two ways:
-* with `new(TasksCount, TimeAccuracy)` function where `TasksCount` is the number of tasks you want to track, `TasksDone` is the number of tasks that have completed and `TimeAccuracy` is the accuracy of the time measurement.
+* with `new(TasksCount, TimeAccuracy)` function where `TasksCount` is the number of tasks you want to track and `TimeAccuracy` is the accuracy of the time measurement.
 * with `in_progress(TasksCount, TasksDone, TimeAccuracy)` function where `TasksDone` is the number of tasks that have completed.
 
 `TimeAccuracy` can be one of the following:
-* `TimeSteps::SEC`
-* `TimeSteps::MILLI`
-* `TimeSteps::MICRO`
-* `TimeSteps::NANO`
+* `TimeAcc::SEC`
+* `TimeAcc::MILLI`
+* `TimeAcc::MICRO`
+* `TimeAcc::NANO`
 
 Run `step()` function on every iteration of your task.
 
@@ -175,6 +181,8 @@ Distributed under the MPL-2.0 license. See `LICENSE.MD` for more information.
 [contributors-url]: https://github.com/aaarkid/eta/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/aaarkid/eta.svg?style=flat
 [forks-url]: https://github.com/aaarkid/eta/network/members
+[version-shield]: https://img.shields.io/crates/v/eta?label=version
+[version-url]: https://crates.io/crates/eta
 [stars-shield]: https://img.shields.io/github/stars/aaarkid/eta.svg?style=flat
 [stars-url]: https://github.com/aaarkid/eta/stargazers
 [issues-shield]: https://img.shields.io/github/issues/aaarkid/eta.svg?style=flat
