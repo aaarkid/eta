@@ -45,4 +45,16 @@ mod tests {
         eta.step();
         assert!(eta.total_time_elapsed > 0);
     }
+
+    #[test]
+    fn test_eta_pause() {
+        let mut eta = Eta::new(10, TimeAcc::MILLI);
+        eta.step();
+        eta.pause();
+        sleep(Duration::from_millis(20));
+        eta.step();
+        eta.resume();
+        eta.step();
+        assert!(eta.total_time_elapsed < 10);
+    }
 }
