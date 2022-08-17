@@ -45,17 +45,29 @@ impl Eta {
         Eta::create_instance(tasks_count, time_accuracy, tasks_done)
     }
 
-    /*fn pause(&self){
-        //tbd
+    pub fn pause(&mut self) {
+        if self.paused.0.is_none() {
+            self.paused.0 = Some(Instant::now());
+            self.paused.1 += self.elapsed();
+        }
     }
-    fn resume(&self){
-        //tbd
-    }*/
+
+    pub fn resume(&mut self) {
+        if self.paused.0.is_some() {
+            self.recent_time = Instant::now();
+            self.paused.0 = None;
+        }
+    }
 
     pub fn step(&mut self) {
         self.tasks_done += 1;
-        self.total_time_elapsed += self.elapsed();
+        if self.paused.0.is_none() {
+            self.total_time_elapsed += self.elapsed();
+        }
+        self.total_time_elapsed += self.paused.1;
         self.recent_time = Instant::now();
+        self.paused.0 = None;
+        self.paused.1 = 0;
     }
 
     fn elapsed(&self) -> usize {
