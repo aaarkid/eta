@@ -11,7 +11,8 @@ pub struct Eta {
     recent_time: Instant,
     total_time_elapsed: usize,
     time_accuracy: TimeAcc,
-    paused: Option<Instant>,
+    time_paused: usize,
+    paused: bool
 }
 
 /* pub struct EtaMessageFormat {
@@ -33,7 +34,8 @@ impl Eta {
             recent_time: Instant::now(),
             total_time_elapsed: 0,
             time_accuracy,
-            paused: None,
+            time_paused: 0,
+            paused: false,
         }
     }
 
@@ -41,21 +43,29 @@ impl Eta {
         Eta::create_instance(tasks_count, time_accuracy, 0)
     }
 
-    pub fn in_progress(tasks_count: usize, time_accuracy: TimeAcc, tasks_done: usize) -> Eta {
-        Eta::create_instance(tasks_count, time_accuracy, tasks_done)
+    pub fn pause(&mut self) {
+        if !self.paused {
+            self.paused = true;
+            self.time_paused += self.elapsed();
+        }
     }
 
-    /*fn pause(&self){
-        //tbd
+    pub fn resume(&mut self) {
+        if self.paused {
+            self.recent_time = Instant::now();
+            self.paused = false;
+        }
     }
-    fn resume(&self){
-        //tbd
-    }*/
 
     pub fn step(&mut self) {
         self.tasks_done += 1;
-        self.total_time_elapsed += self.elapsed();
+        if !self.paused {
+            self.total_time_elapsed += self.elapsed();
+        }
+        self.total_time_elapsed += self.time_paused;
         self.recent_time = Instant::now();
+        self.paused = false;
+        self.time_paused = 0;
     }
 
     fn elapsed(&self) -> usize {
