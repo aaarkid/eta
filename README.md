@@ -114,7 +114,7 @@ _For more examples, please refer to the [Documentation](https://docs.rs/eta/0.0.
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Enable to pause and resume time tracking
+- [x] Enable to pause and resume time tracking
 - [ ] Ability to calculate weight of unequal tasks during development and create more accurate progress and ETA measurement.
 - [ ] Create more options for formatting output.
 - [ ] Add tolerance against outlier values.
