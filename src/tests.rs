@@ -11,17 +11,8 @@ mod tests {
         assert_eq!(eta.tasks_done, 0);
         assert_eq!(eta.time_accuracy, TimeAcc::SEC);
         assert_eq!(eta.total_time_elapsed, 0);
-        assert_eq!(eta.paused, (None, 0));
-    }
-
-    #[test]
-    fn test_eta_in_progress() {
-        let eta = Eta::in_progress(10, TimeAcc::SEC, 5);
-        assert_eq!(eta.tasks_count, 10);
-        assert_eq!(eta.tasks_done, 5);
-        assert_eq!(eta.time_accuracy, TimeAcc::SEC);
-        assert_eq!(eta.total_time_elapsed, 0);
-        assert_eq!(eta.paused, (None, 0));
+        assert_eq!(eta.paused, false);
+        assert_eq!(eta.time_paused, 0);
     }
 
     #[test]
@@ -50,7 +41,7 @@ mod tests {
     fn test_eta_pause() {
         let mut eta = Eta::new(10, TimeAcc::SEC);
         eta.pause();
-        assert!(eta.paused.0.is_some());
+        assert!(eta.paused);
     }
 
     #[test]
@@ -58,7 +49,7 @@ mod tests {
         let mut eta = Eta::new(10, TimeAcc::SEC);
         eta.pause();
         eta.resume();
-        assert!(eta.paused.0.is_none());
+        assert!(!eta.paused);
     }
 
     #[test]
