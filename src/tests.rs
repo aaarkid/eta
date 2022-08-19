@@ -24,9 +24,15 @@ mod tests {
 
     #[test]
     fn test_eta_elapsed() {
-        let eta = Eta::new(10, TimeAcc::NANO);
-        sleep(Duration::from_millis(1));
-        assert!(eta.elapsed() > 0);
+        let eta1 = Eta::new(10, TimeAcc::SEC);
+        let eta2 = Eta::new(10, TimeAcc::MILLI);
+        let eta3 = Eta::new(10, TimeAcc::MICRO);
+        let eta4 = Eta::new(10, TimeAcc::NANO);
+        sleep(Duration::from_secs(1));
+        assert!(eta1.elapsed() > 0);
+        assert!(eta2.elapsed() > 0);
+        assert!(eta3.elapsed() > 0);
+        assert!(eta4.elapsed() > 0);
     }
 
     #[test]
@@ -97,5 +103,12 @@ mod tests {
         assert_eq!(format!("{}", TimeAcc::MILLI), "ms");
         assert_eq!(format!("{}", TimeAcc::MICRO), "us");
         assert_eq!(format!("{}", TimeAcc::NANO), "ns");
+    }
+    
+    fn test_eta_display() {
+        let mut eta = Eta::new(10, TimeAcc::SEC);
+        sleep(Duration::from_secs(1));
+        eta.step();
+        assert_eq!(format!("{}", eta), "1/10: 10% (9s remaining)");
     }
 }
