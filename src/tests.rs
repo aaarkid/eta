@@ -105,10 +105,11 @@ mod tests {
         assert_eq!(format!("{}", TimeAcc::NANO), "ns");
     }
     
+    #[test]
     fn test_eta_display() {
         let mut eta = Eta::new(10, TimeAcc::SEC);
         sleep(Duration::from_secs(1));
         eta.step();
-        assert_eq!(format!("{}", eta), "1/10: 10% (9s remaining)");
+        assert_eq!(eta.to_string(), "1/10: 10% (9s remaining)".to_owned());
     }
 }
