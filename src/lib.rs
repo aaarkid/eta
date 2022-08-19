@@ -105,14 +105,16 @@ impl Eta {
             status.push_str("=");
         }
 
-        status.push_str(&format!("] {}% {}/{} remaining: {} {}. elapsed: {} {}.", percent, self.tasks_done, self.tasks_count, self.time_remaining(), self.time_accuracy, self.total_time_elapsed, self.time_accuracy));
+        status.push_str(&format!("] {}% | {}/{} | Remaining: {} {} | Elapsed: {} {}", percent, self.tasks_done, self.tasks_count, self.time_remaining(), self.time_accuracy, self.total_time_elapsed, self.time_accuracy));
 
         print!("{}", status);
 
         // Flush buffer
         std::io::stdout().flush().unwrap();
-
-        println!();
+        
+        if(self.tasks_done == self.tasks_count) {
+            println!("\n");
+        }
     }
 }
 
