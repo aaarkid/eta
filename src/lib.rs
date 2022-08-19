@@ -20,20 +20,22 @@
 //! ```rust
 //! use eta::Eta;
 //! 
-//! fn calculate_square {
-//!    //--snip--
+//! fn calculate_square (number: usize) -> usize {
+//!    number * number
 //! }
 //! 
 //! fn main() {
-//! let count = 100;
-//! let numbers = Vec::from_iter(0..count);
-//! let mut eta = Eta::new(count, TimeAcc::MILLI);
-//! 
-//! for number in numbers {
-//!     calculate_square(number);
-//!     eta.step();
-//!     if (number % 10) == 0 {
-//!     println!("{}", eta);
+//!     let count = 100;
+//!     let numbers = Vec::from_iter(0..count);
+//!     let mut eta = Eta::new(count, TimeAcc::MILLI);
+//!     
+//!     for number in numbers {
+//!         calculate_square(number);
+//!         eta.step();
+//!         if (number % 10) == 0 {
+//!             println!("{}", eta);
+//!         }
+//!     }
 //! }
 
 mod tests;
@@ -190,12 +192,14 @@ impl Eta {
     }
 }
 
+#[doc(hidden)]
 impl std::fmt::Display for Eta {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}/{}: {}% ({}{} remaining)", self.tasks_done, self.tasks_count, self.progress()*100.0, self.time_remaining(), self.time_accuracy)
     }
 }
 
+#[doc(hidden)]
 impl std::fmt::Display for TimeAcc {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
