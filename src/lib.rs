@@ -92,9 +92,8 @@ impl Eta {
         let mut status = String::from("\r[");
 
         let percent: usize= (self.progress() * 100.0).round() as usize;
-        let bar = (percent * size) / 100;
+        let bar = (percent * size) / 100;   // ratio of progress bar that must be filled
 
-        // Append percent characters to the status string
         status.push_str("=".repeat(bar).as_str());
 
         if bar < size {
@@ -109,9 +108,8 @@ impl Eta {
 
         print!("{}", status);
 
-        // Flush buffer
         std::io::stdout().flush().unwrap();
-        
+
         if(self.tasks_done == self.tasks_count) {
             println!("\n");
         }
