@@ -1,4 +1,6 @@
 #![allow(dead_code)]
+#![doc(html_favicon_url = "images/favicon.png")]
+#![doc(html_logo_url = "images/logo.png")]
 
 mod tests;
 
