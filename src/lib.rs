@@ -88,9 +88,9 @@ impl Eta {
             as usize
     }
 
-    pub fn show_status(&self, bar_size: Option<usize>) {
+    pub fn status(&self, bar_size: Option<usize>) -> String {
         let size = bar_size.unwrap_or(60);
-        let mut status = String::from("\r[");
+        let mut status = String::from("[");
 
         let percent: usize= (self.progress() * 100.0).round() as usize;
         let bar = (percent * size) / 100;   // ratio of progress bar that must be filled
@@ -107,7 +107,11 @@ impl Eta {
 
         write!(&mut status, "] {}% | {}/{} | Remaining: {} {} | Elapsed: {} {}", percent, self.tasks_done, self.tasks_count, self.time_remaining(), self.time_accuracy, self.total_time_elapsed, self.time_accuracy).unwrap();
 
-        print!("{}", status);
+        status
+    }
+
+    pub fn print_status(&self, bar_size: Option<usize>) {
+        print!("\r{}", self.status(bar_size));
 
         std::io::stdout().flush().unwrap();
 
@@ -115,6 +119,7 @@ impl Eta {
             println!("\n");
         }
     }
+    
 }
 
 impl std::fmt::Display for Eta {
