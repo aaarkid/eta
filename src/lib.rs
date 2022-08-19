@@ -13,12 +13,12 @@
 //! ```
 //! and this to your source code:
 //! ```rust
-//! use eta::Eta;
+//! use eta::{Eta,TimeAcc};
 //! ```
 //! 
 //! # Example
 //! ```rust
-//! use eta::Eta;
+//! use eta::{Eta,TimeAcc};
 //! 
 //! fn calculate_square (number: usize) -> usize {
 //!    number * number
@@ -41,7 +41,6 @@
 mod tests;
 
 use std::time::{Instant};
-
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 /// `Eta` is the main object which keep track of task count and elapsed times.
@@ -84,9 +83,14 @@ impl Eta {
 
     ///Creates a new `Eta` object with the given number of tasks and accuracy on time measurement.
     /// 
+    /// 
     /// # Example
     /// ```rust
+    /// # use eta::{Eta,TimeAcc};
+    /// # fn main () {
+    /// # let count_of_tasks = 100;
     /// let eta = Eta::new(count_of_tasks, TimeAcc::MILLI);
+    /// # }
     /// ```
 
     pub fn new (tasks_count: usize, time_accuracy: TimeAcc) -> Eta {
@@ -98,12 +102,18 @@ impl Eta {
     /// 
     /// # Example
     /// ```rust
+    /// # use eta::{Eta,TimeAcc};
+    /// # use std::time::Duration;
+    /// # use std::thread::sleep;
+    /// # fn main () {
+    /// # let count_of_tasks = 100;
     /// let mut eta = Eta::new(count_of_tasks, TimeAcc::MILLI);
     /// sleep(Duration::from_secs(1)); // one second elapses
     /// eta.pause();
     /// sleep(Duration::from_secs(1)); // this other second isn't kept track of
     /// eta.step(); // time elapsed will account for approx. 1 second here
     /// eta.resume(); // does nothing as eta is resumed automatically right after eta.step()
+    /// # }
     /// ```
     pub fn pause(&mut self) {
         if !self.paused {
@@ -117,12 +127,18 @@ impl Eta {
     /// 
     /// # Example
     /// ```rust
+    /// # use eta::{Eta,TimeAcc};
+    /// # use std::time::Duration;
+    /// # use std::thread::sleep;
+    /// # fn main () {
+    /// # let count_of_tasks = 100;
     /// let mut eta = Eta::new(count_of_tasks, TimeAcc::MILLI);
     /// eta.pause(); // eta is paused
     /// sleep(Duration::from_secs(1)); // this second is NOT kept track of
     /// eta.resume(); // resumes the object
     /// sleep(Duration::from_secs(1)); // this other second is kept track of
     /// eta.step(); // time elapsed will account for approx. 1 seconds here
+    /// # }
     /// ```
     pub fn resume(&mut self) {
         if self.paused {
@@ -135,12 +151,17 @@ impl Eta {
     /// 
     /// # Example
     /// ```rust
+    /// # use eta::{Eta,TimeAcc};
+    /// # fn main () {
+    /// # let count_of_tasks = 100;
     /// let mut eta = Eta::new(count_of_tasks, TimeAcc::MILLI);
     /// for something in 0..count_of_tasks {
     ///     // do something
     ///     eta.step();
     ///     println!("{}", eta);
     /// }
+    /// # }
+    /// ```
     pub fn step(&mut self) {
         self.tasks_done += 1;
         if !self.paused {
@@ -166,12 +187,17 @@ impl Eta {
     /// 
     /// # Example
     /// ```rust
-    /// let mut eta = Eta.new(count_of_tasks, TimeAcc::MILLI)
+    /// # use eta::{Eta,TimeAcc};
+    /// # fn main () {
+    /// # let count_of_tasks = 100;
+    /// let mut eta = Eta::new(count_of_tasks, TimeAcc::MILLI);
     /// for something in 0..count_of_tasks {
     ///     // do something
     ///     eta.step();
-    ///     println!("{}% of the job is done", eta.progress()*100);
+    ///     println!("{}% of the job is done", eta.progress()*100 as f64);
     /// }
+    /// # }
+    /// ```
     pub fn progress(&self) -> f64 {
         (self.tasks_done as f64) / (self.tasks_count as f64)
     }
@@ -180,12 +206,17 @@ impl Eta {
     /// 
     /// # Example
     /// ```rust
-    /// let mut eta = Eta.new(count_of_tasks, TimeAcc::MILLI)
+    /// # use eta::{Eta,TimeAcc};
+    /// # fn main () {
+    /// # let count_of_tasks = 100;
+    /// let mut eta = Eta::new(count_of_tasks, TimeAcc::MILLI);
     /// for something in 0..count_of_tasks {
     ///     // do something
     ///     eta.step();
     ///     println!("Job will be finished in {}s.", eta.time_remaining()/1000);
     /// }
+    /// # }
+    /// ```
     pub fn time_remaining(&self) -> usize {
         ((self.tasks_count - self.tasks_done) as f64 * (self.total_time_elapsed as f64) / (self.tasks_done as f64))
             as usize
