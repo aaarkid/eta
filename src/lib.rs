@@ -2,7 +2,8 @@
 
 mod tests;
 
-use std::io::Write;
+use std::fmt::Write as FmtWrite;
+use std::io::Write as IoWrite;
 use std::time::{Instant};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -97,20 +98,20 @@ impl Eta {
         status.push_str("=".repeat(bar).as_str());
 
         if bar < size {
-            status.push_str(">");
+            status.push('>');
             status.push_str(" ".repeat(size - bar).as_str());
         }
         else {
-            status.push_str("=");
+            status.push('=');
         }
 
-        status.push_str(&format!("] {}% | {}/{} | Remaining: {} {} | Elapsed: {} {}", percent, self.tasks_done, self.tasks_count, self.time_remaining(), self.time_accuracy, self.total_time_elapsed, self.time_accuracy));
+        write!(&mut status, "] {}% | {}/{} | Remaining: {} {} | Elapsed: {} {}", percent, self.tasks_done, self.tasks_count, self.time_remaining(), self.time_accuracy, self.total_time_elapsed, self.time_accuracy).unwrap();
 
         print!("{}", status);
 
         std::io::stdout().flush().unwrap();
 
-        if(self.tasks_done == self.tasks_count) {
+        if self.tasks_done == self.tasks_count {
             println!("\n");
         }
     }
