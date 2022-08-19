@@ -17,7 +17,7 @@
   <p align="center">
     Rust library for tracking progress on repetive tasks and measuring estimated remaining times.
     <br />
-    <a href="https://github.com/aaarkid/eta"><strong>Explore the docs »</strong></a>
+    <a href="https://docs.rs/eta/0.2.1/eta/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/aaarkid/eta">View Demo</a>
