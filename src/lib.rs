@@ -2,6 +2,7 @@
 
 mod tests;
 
+use std::io::Write;
 use std::time::{Instant};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -84,6 +85,34 @@ impl Eta {
     pub fn time_remaining(&self) -> usize {
         ((self.tasks_count - self.tasks_done) as f64 * (self.total_time_elapsed as f64) / (self.tasks_done as f64))
             as usize
+    }
+
+    pub fn show_status(&self, bar_size: Option<usize>) {
+        let size = bar_size.unwrap_or(60);
+        let mut status = String::from("\r[");
+
+        let percent: usize= (self.progress() * 100.0).round() as usize;
+        let bar = (percent * size) / 100;
+
+        // Append percent characters to the status string
+        status.push_str("=".repeat(bar).as_str());
+
+        if bar < size {
+            status.push_str(">");
+            status.push_str(" ".repeat(size - bar).as_str());
+        }
+        else {
+            status.push_str("=");
+        }
+
+        status.push_str(&format!("] {}% {}/{} remaining: {} {}. elapsed: {} {}.", percent, self.tasks_done, self.tasks_count, self.time_remaining(), self.time_accuracy, self.total_time_elapsed, self.time_accuracy));
+
+        print!("{}", status);
+
+        // Flush buffer
+        std::io::stdout().flush().unwrap();
+
+        println!();
     }
 }
 
