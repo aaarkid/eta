@@ -238,7 +238,7 @@ fn minutes_format (time: usize) -> String {
 impl std::fmt::Display for Eta {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}/{}: {}% ({} remaining)", self.tasks_done, self.tasks_count, (self.progress()*100.0).round(), match self.time_accuracy {
-            TimeAcc::SEC => format!("{}", minutes_format(self.time_remaining())),
+            TimeAcc::SEC => minutes_format(self.time_remaining()),
             TimeAcc::MILLI => format!("{}s", self.time_remaining() / 1000),
             TimeAcc::MICRO => format!("{}ms", self.time_remaining() / 1000),
             TimeAcc::NANO => format!("{}µs", self.time_remaining() / 1000)
