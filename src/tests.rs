@@ -110,12 +110,21 @@ mod tests {
         let mut eta1 = Eta::new(10, TimeAcc::SEC);
         let mut eta2 = Eta::new(100, TimeAcc::SEC);
         let mut eta3 = Eta::new(61, TimeAcc::SEC);
+        let mut eta4 = Eta::new(1, TimeAcc::MILLI);
+        let mut eta5 = Eta::new(1, TimeAcc::MICRO);
+        let mut eta6 = Eta::new(1, TimeAcc::NANO);
         sleep(Duration::from_secs(1));
         eta1.step();
         eta2.step();
         eta3.step();
+        eta4.step();
+        eta5.step();
+        eta6.step();
         assert_eq!(eta1.to_string(), "1/10: 10% (9s remaining)".to_owned());
         assert_eq!(eta2.to_string(), "1/100: 1% (1m 39s remaining)".to_owned());
         assert_eq!(eta3.to_string(), "1/61: 2% (1m remaining)".to_owned());
+        assert_eq!(eta4.to_string(), "1/1: 100% (0s remaining)".to_owned());
+        assert_eq!(eta5.to_string(), "1/1: 100% (0ms remaining)".to_owned());
+        assert_eq!(eta6.to_string(), "1/1: 100% (0µs remaining)".to_owned());
     }
 }
