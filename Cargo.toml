@@ -1,6 +1,6 @@
 [package]
 name = "eta"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2021"
 authors = ["Arkid Kaleci <akaleci@jacobs-university.de>"]
 description = "Tracks progress on repetive tasks and measures estimated remaining times."
