@@ -10,7 +10,7 @@ mod tests {
         assert_eq!(eta.tasks_count, 10);
         assert_eq!(eta.tasks_done, 0);
         assert_eq!(eta.time_accuracy, TimeAcc::SEC);
-        assert_eq!(eta.total_time_elapsed, 0);
+        assert_eq!(eta.time_elapsed, 0);
         assert_eq!(eta.paused, false);
         assert_eq!(eta.time_paused, 0);
     }
@@ -29,10 +29,10 @@ mod tests {
         let eta3 = Eta::new(10, TimeAcc::MICRO);
         let eta4 = Eta::new(10, TimeAcc::NANO);
         sleep(Duration::from_secs(1));
-        assert!(eta1.elapsed() > 0);
-        assert!(eta2.elapsed() > 0);
-        assert!(eta3.elapsed() > 0);
-        assert!(eta4.elapsed() > 0);
+        assert!(eta1.step_elapsed() > 0);
+        assert!(eta2.step_elapsed() > 0);
+        assert!(eta3.step_elapsed() > 0);
+        assert!(eta4.step_elapsed() > 0);
     }
 
     #[test]
@@ -40,7 +40,7 @@ mod tests {
         let mut eta = Eta::new(10, TimeAcc::SEC);
         sleep(Duration::from_secs(1));
         eta.step();
-        assert!(eta.total_time_elapsed > 0);
+        assert!(eta.time_elapsed > 0);
     }
 
     #[test]
@@ -80,7 +80,7 @@ mod tests {
         sleep(Duration::from_secs(1));
         eta.resume();
         eta.step();
-        assert_eq!(eta.total_time_elapsed, 0);
+        assert_eq!(eta.time_elapsed, 0);
     }
 
     #[test]
@@ -94,22 +94,28 @@ mod tests {
         eta.pause();
         sleep(Duration::from_secs(1));
         eta.step();
-        assert_eq!(eta.total_time_elapsed, 2);
+        assert_eq!(eta.time_elapsed, 2);
     }
 
     #[test]
     fn test_timeacc_display() {
         assert_eq!(format!("{}", TimeAcc::SEC), "s");
         assert_eq!(format!("{}", TimeAcc::MILLI), "ms");
-        assert_eq!(format!("{}", TimeAcc::MICRO), "us");
+        assert_eq!(format!("{}", TimeAcc::MICRO), "µs");
         assert_eq!(format!("{}", TimeAcc::NANO), "ns");
     }
     
     #[test]
     fn test_eta_display() {
-        let mut eta = Eta::new(10, TimeAcc::SEC);
+        let mut eta1 = Eta::new(10, TimeAcc::SEC);
+        let mut eta2 = Eta::new(100, TimeAcc::SEC);
+        let mut eta3 = Eta::new(61, TimeAcc::SEC);
         sleep(Duration::from_secs(1));
-        eta.step();
-        assert_eq!(eta.to_string(), "1/10: 10% (9s remaining)".to_owned());
+        eta1.step();
+        eta2.step();
+        eta3.step();
+        assert_eq!(eta1.to_string(), "1/10: 10% (9s remaining)".to_owned());
+        assert_eq!(eta2.to_string(), "1/100: 1% (1m 39s remaining)".to_owned());
+        assert_eq!(eta3.to_string(), "1/61: 2% (1m remaining)".to_owned());
     }
 }
