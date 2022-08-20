@@ -1,6 +1,7 @@
 #![allow(dead_code)]
-#![doc(html_favicon_url = "https://github.com/aaarkid/eta/blob/master/images/favicon.png")]
-#![doc(html_logo_url = "https://github.com/aaarkid/eta/blob/master/images/logo.png")]
+#![doc(html_favicon_url = "https://raw.githubusercontent.com/aaarkid/eta/master/images/favicon.png")]
+#![doc(html_logo_url = "https://raw.githubusercontent.com/aaarkid/eta/master/images/logo.png")]
+
 #![warn(missing_docs)]
 
 //!Tracking progress on repetive tasks and measuring remaining times.
@@ -9,7 +10,7 @@
 //! Add this to your `Cargo.toml`:
 //! ```toml
 //! [dependencies]
-//! eta = "0.2.1"
+//! eta = "0.2.2"
 //! ```
 //! and this to your source code:
 //! ```rust
@@ -49,22 +50,22 @@ pub struct Eta {
     tasks_count: usize,
     tasks_done: usize,
     recent_time: Instant,
-    total_time_elapsed: usize,
+    time_elapsed: usize,
     time_accuracy: TimeAcc,
     time_paused: usize,
     paused: bool
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
-///`TimeAcc` is an enum for keeping track of the grade of accuracy for any information regarding time.
+///`TimeAcc` determines the accuracy of the time measurement.
 pub enum TimeAcc {
-    ///SEC stands for seconds. 1 seconds has 1000 milliseconds.
+    ///SEC stands for seconds. This will be displayed in minutes and seconds.
     SEC,
-    ///MILLI stands for milliseconds.
+    ///MILLI stands for milliseconds. This will be displayed in seconds.
     MILLI,
-    ///MICRO stands for microseconds. 1,000 microseconds make up 1 millisecond
+    ///MICRO stands for microseconds. This will be displayed in milliseconds.
     MICRO,
-    ///NANO stands for nanoseconds. 1,000,000 nanoseconds make up 1 millisecond.
+    ///NANO stands for nanoseconds. This will be displayed in microseconds.
     NANO
 }
 
@@ -74,7 +75,7 @@ impl Eta {
             tasks_count,
             tasks_done,
             recent_time: Instant::now(),
-            total_time_elapsed: 0,
+            time_elapsed: 0,
             time_accuracy,
             time_paused: 0,
             paused: false,
@@ -118,7 +119,7 @@ impl Eta {
     pub fn pause(&mut self) {
         if !self.paused {
             self.paused = true;
-            self.time_paused += self.elapsed();
+            self.time_paused += self.step_elapsed();
         }
     }
 
@@ -165,15 +166,15 @@ impl Eta {
     pub fn step(&mut self) {
         self.tasks_done += 1;
         if !self.paused {
-            self.total_time_elapsed += self.elapsed();
+            self.time_elapsed += self.step_elapsed();
         }
-        self.total_time_elapsed += self.time_paused;
+        self.time_elapsed += self.time_paused;
         self.recent_time = Instant::now();
         self.paused = false;
         self.time_paused = 0;
     }
 
-    fn elapsed(&self) -> usize {
+    fn step_elapsed(&self) -> usize {
         match self.time_accuracy {
             TimeAcc::SEC => self.recent_time.elapsed().as_secs() as usize,
             TimeAcc::MILLI => self.recent_time.elapsed().as_millis() as usize,
@@ -218,15 +219,30 @@ impl Eta {
     /// # }
     /// ```
     pub fn time_remaining(&self) -> usize {
-        ((self.tasks_count - self.tasks_done) as f64 * (self.total_time_elapsed as f64) / (self.tasks_done as f64))
+        ((self.tasks_count - self.tasks_done) as f64 * (self.time_elapsed as f64) / (self.tasks_done as f64))
             as usize
+    }
+}
+
+fn minutes_format (time: usize) -> String {
+    if time < 60 {
+        format!("{}s", time)
+    } else if time % 60 == 0 {
+        format!("{}m", time / 60)
+    } else {
+        format!("{}m {}s", time / 60, time % 60)
     }
 }
 
 #[doc(hidden)]
 impl std::fmt::Display for Eta {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}/{}: {}% ({}{} remaining)", self.tasks_done, self.tasks_count, self.progress()*100.0, self.time_remaining(), self.time_accuracy)
+        write!(f, "{}/{}: {}% ({} remaining)", self.tasks_done, self.tasks_count, (self.progress()*100.0).round(), match self.time_accuracy {
+            TimeAcc::SEC => minutes_format(self.time_remaining()),
+            TimeAcc::MILLI => format!("{}s", self.time_remaining() / 1000),
+            TimeAcc::MICRO => format!("{}ms", self.time_remaining() / 1000),
+            TimeAcc::NANO => format!("{}µs", self.time_remaining() / 1000)
+        })
     }
 }
 
@@ -236,7 +252,7 @@ impl std::fmt::Display for TimeAcc {
         match self {
             TimeAcc::SEC => write!(f, "s"),
             TimeAcc::MILLI => write!(f, "ms"),
-            TimeAcc::MICRO => write!(f, "us"),
+            TimeAcc::MICRO => write!(f, "µs"),
             TimeAcc::NANO => write!(f, "ns"),
         }
     }
