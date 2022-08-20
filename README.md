@@ -17,7 +17,7 @@
   <p align="center">
     Rust library for tracking progress on repetive tasks and measuring estimated remaining times.
     <br />
-    <a href="https://docs.rs/eta/0.2.1/eta/"><strong>Explore the docs »</strong></a>
+    <a href="https://docs.rs/eta/latest/eta/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/aaarkid/eta">View Demo</a>
@@ -71,7 +71,7 @@ ETA aims to be a simple, easy to use, and efficient library for tracking progres
 Add this to your `Cargo.toml`:
 ```rust
 [dependencies]
-eta = "0.2.1"
+eta = "0.2.2"
 ```
 
 Add this to your source code:
