@@ -84,9 +84,7 @@ use eta::{ETA, TimeAcc};
 
 Usage is revolved around the `Eta` Object which implements a number of functions.
 
-Initialize Eta in two ways:
-* with `new(TasksCount, TimeAccuracy)` function where `TasksCount` is the number of tasks you want to track and `TimeAccuracy` is the accuracy of the time measurement.
-* with `in_progress(TasksCount, TasksDone, TimeAccuracy)` function where `TasksDone` is the number of tasks that have completed.
+Initialize Eta with `new(TasksCount, TimeAccuracy)` function where `TasksCount` is the number of tasks you want to track and `TimeAccuracy` is the accuracy of the time measurement.
 
 `TimeAccuracy` can be one of the following:
 * `TimeAcc::SEC`
