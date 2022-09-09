@@ -43,17 +43,41 @@ mod tests;
 
 use std::time::{Instant};
 
+trait Eta {
+    fn new(total: usize, time_acc: TimeAcc) -> Self;
+    fn step (&self);
+    fn resume (&self);
+    fn pause (&self);
+    fn progress (&self) -> f64;
+    fn time_remaining (&self) -> usize;
+}
+
+pub struct SimpleEta {
+    eta: Stopwatch,
+}
+
+pub struct ProgressBarEta {
+    eta: Stopwatch,
+    bar: ProgressBar,
+}
+
+pub struct ProgressBar {
+    bar_length: u8,
+    pub bar_char: char,
+    pub empty_char: char,
+}
+
 #[derive(Debug, Clone, PartialEq, Eq)]
 /// `Eta` is the main object which keep track of task count and elapsed times.
 /// It implements several methods to display various information about the progress.
-pub struct Eta {
+pub struct Stopwatch {
     tasks_count: usize,
     tasks_done: usize,
     recent_time: Instant,
     time_elapsed: usize,
     time_accuracy: TimeAcc,
     time_paused: usize,
-    paused: bool
+    paused: bool   
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -69,9 +93,9 @@ pub enum TimeAcc {
     NANO
 }
 
-impl Eta {
-    fn create_instance(tasks_count: usize, time_accuracy: TimeAcc, tasks_done: usize) -> Eta {
-        Eta {
+impl Stopwatch {
+    fn create_instance(tasks_count: usize, time_accuracy: TimeAcc, tasks_done: usize) -> Stopwatch {
+        Stopwatch {
             tasks_count,
             tasks_done,
             recent_time: Instant::now(),
@@ -94,8 +118,8 @@ impl Eta {
     /// # }
     /// ```
 
-    pub fn new (tasks_count: usize, time_accuracy: TimeAcc) -> Eta {
-        Eta::create_instance(tasks_count, time_accuracy, 0)
+    pub fn new (tasks_count: usize, time_accuracy: TimeAcc) -> Stopwatch {
+        Stopwatch::create_instance(tasks_count, time_accuracy, 0)
     }
 
     /// Pauses time measurement for the object. Resuming time measurement is done by calling `resume()`.
@@ -235,7 +259,7 @@ fn minutes_format (time: usize) -> String {
 }
 
 #[doc(hidden)]
-impl std::fmt::Display for Eta {
+impl std::fmt::Display for Stopwatch {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}/{}: {}% ({} remaining)", self.tasks_done, self.tasks_count, (self.progress()*100.0).round(), match self.time_accuracy {
             TimeAcc::SEC => minutes_format(self.time_remaining()),
