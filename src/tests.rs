@@ -6,7 +6,7 @@ mod tests {
 
     #[test]
     fn test_eta_new() {
-        let eta = Eta::new(10, TimeAcc::SEC);
+        let eta = Stopwatch::new(10, TimeAcc::SEC);
         assert_eq!(eta.tasks_count, 10);
         assert_eq!(eta.tasks_done, 0);
         assert_eq!(eta.time_accuracy, TimeAcc::SEC);
@@ -17,17 +17,17 @@ mod tests {
 
     #[test]
     fn test_eta_step() {
-        let mut eta = Eta::new(10, TimeAcc::SEC);
+        let mut eta = Stopwatch::new(10, TimeAcc::SEC);
         eta.step();
         assert_eq!(eta.tasks_done, 1);
     }
 
     #[test]
     fn test_eta_elapsed() {
-        let eta1 = Eta::new(10, TimeAcc::SEC);
-        let eta2 = Eta::new(10, TimeAcc::MILLI);
-        let eta3 = Eta::new(10, TimeAcc::MICRO);
-        let eta4 = Eta::new(10, TimeAcc::NANO);
+        let eta1 = Stopwatch::new(10, TimeAcc::SEC);
+        let eta2 = Stopwatch::new(10, TimeAcc::MILLI);
+        let eta3 = Stopwatch::new(10, TimeAcc::MICRO);
+        let eta4 = Stopwatch::new(10, TimeAcc::NANO);
         sleep(Duration::from_secs(1));
         assert!(eta1.step_elapsed() > 0);
         assert!(eta2.step_elapsed() > 0);
@@ -37,7 +37,7 @@ mod tests {
 
     #[test]
     fn test_eta_total_elapsed_time() {
-        let mut eta = Eta::new(10, TimeAcc::SEC);
+        let mut eta = Stopwatch::new(10, TimeAcc::SEC);
         sleep(Duration::from_secs(1));
         eta.step();
         assert!(eta.time_elapsed > 0);
@@ -45,14 +45,14 @@ mod tests {
 
     #[test]
     fn test_eta_pause() {
-        let mut eta = Eta::new(10, TimeAcc::SEC);
+        let mut eta = Stopwatch::new(10, TimeAcc::SEC);
         eta.pause();
         assert!(eta.paused);
     }
 
     #[test]
     fn test_eta_resume() {
-        let mut eta = Eta::new(10, TimeAcc::SEC);
+        let mut eta = Stopwatch::new(10, TimeAcc::SEC);
         eta.pause();
         eta.resume();
         assert!(!eta.paused);
@@ -60,14 +60,14 @@ mod tests {
 
     #[test]
     fn test_eta_progress() {
-        let mut eta = Eta::new(10, TimeAcc::SEC);
+        let mut eta = Stopwatch::new(10, TimeAcc::SEC);
         eta.step();
         assert_eq!(eta.progress(), 0.1);
     }
 
     #[test]
     fn test_eta_time_remaining() {
-        let mut eta = Eta::new(10, TimeAcc::SEC);
+        let mut eta = Stopwatch::new(10, TimeAcc::SEC);
         sleep(Duration::from_secs(1));
         eta.step();
         assert_eq!(eta.time_remaining(), 9);
@@ -75,7 +75,7 @@ mod tests {
 
     #[test]
     fn test_eta_time_remaining_paused() {
-        let mut eta = Eta::new(10, TimeAcc::SEC);
+        let mut eta = Stopwatch::new(10, TimeAcc::SEC);
         eta.pause();
         sleep(Duration::from_secs(1));
         eta.resume();
@@ -85,7 +85,7 @@ mod tests {
 
     #[test]
     fn test_eta_complex_paused() {
-        let mut eta = Eta::new(10, TimeAcc::SEC);
+        let mut eta = Stopwatch::new(10, TimeAcc::SEC);
         sleep(Duration::from_secs(1));
         eta.pause();
         sleep(Duration::from_secs(1));
@@ -107,12 +107,12 @@ mod tests {
     
     #[test]
     fn test_eta_display() {
-        let mut eta1 = Eta::new(10, TimeAcc::SEC);
-        let mut eta2 = Eta::new(100, TimeAcc::SEC);
-        let mut eta3 = Eta::new(61, TimeAcc::SEC);
-        let mut eta4 = Eta::new(1, TimeAcc::MILLI);
-        let mut eta5 = Eta::new(1, TimeAcc::MICRO);
-        let mut eta6 = Eta::new(1, TimeAcc::NANO);
+        let mut eta1 = Stopwatch::new(10, TimeAcc::SEC);
+        let mut eta2 = Stopwatch::new(100, TimeAcc::SEC);
+        let mut eta3 = Stopwatch::new(61, TimeAcc::SEC);
+        let mut eta4 = Stopwatch::new(1, TimeAcc::MILLI);
+        let mut eta5 = Stopwatch::new(1, TimeAcc::MICRO);
+        let mut eta6 = Stopwatch::new(1, TimeAcc::NANO);
         sleep(Duration::from_secs(1));
         eta1.step();
         eta2.step();
