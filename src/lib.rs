@@ -41,6 +41,8 @@
 
 mod tests;
 
+use std::fmt::Write as FmtWrite;
+use std::io::Write as IoWrite;
 use std::time::{Instant};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -222,6 +224,39 @@ impl Eta {
         ((self.tasks_count - self.tasks_done) as f64 * (self.time_elapsed as f64) / (self.tasks_done as f64))
             as usize
     }
+
+    pub fn status(&self, bar_size: Option<usize>) -> String {
+        let size = bar_size.unwrap_or(60);
+        let mut status = String::from("[");
+
+        let percent: usize= (self.progress() * 100.0).round() as usize;
+        let bar = (percent * size) / 100;   // ratio of progress bar that must be filled
+
+        status.push_str("=".repeat(bar).as_str());
+
+        if bar < size {
+            status.push('>');
+            status.push_str(" ".repeat(size - bar).as_str());
+        }
+        else {
+            status.push('=');
+        }
+
+        write!(&mut status, "] {}% | {}/{} | Remaining: {} {} | Elapsed: {} {}", percent, self.tasks_done, self.tasks_count, self.time_remaining(), self.time_accuracy, self.total_time_elapsed, self.time_accuracy).unwrap();
+
+        status
+    }
+
+    pub fn print_status(&self, bar_size: Option<usize>) {
+        print!("\r{}", self.status(bar_size));
+
+        std::io::stdout().flush().unwrap();
+
+        if self.tasks_done == self.tasks_count {
+            println!("\n");
+        }
+    }
+    
 }
 
 fn minutes_format (time: usize) -> String {
